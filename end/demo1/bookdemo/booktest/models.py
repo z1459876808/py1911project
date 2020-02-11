@@ -30,7 +30,7 @@ class Book(models.Model):
     title = models.CharField(max_length=20)
     #          models.DateField更新时间(default数据库默认时间是""1998-04-10)
     pub_date = models.DateField(default="1998-04-10")
-
+    price = models.FloatField(default=0)
 
 class Hero(models.Model):
     """
@@ -40,7 +40,7 @@ class Hero(models.Model):
     #       models.CharField是一个字符串(max_length最大长度是5,choices选项以元组的形式存放
     #       有多少个选项就写多少个元组  default数据库默认的选项male男)
     gender = models.CharField(max_length=6, choices=(("male", "男"), ("female", "女")), default="male")
-    price = models.FloatField(default=0)
+
     content = models.CharField(max_length=100)
 
     #      models.ForeignKey定义一个外键( )
