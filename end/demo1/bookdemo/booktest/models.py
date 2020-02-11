@@ -31,6 +31,8 @@ class Book(models.Model):
     #          models.DateField更新时间(default数据库默认时间是""1998-04-10)
     pub_date = models.DateField(default="1998-04-10")
     price = models.FloatField(default=0)
+    def __str__(self):
+        return self.title
 
 class Hero(models.Model):
     """
@@ -47,3 +49,6 @@ class Hero(models.Model):
     # book 是一对多中的外键 on_delete代表删除主表数据如何做
     # models.CASCADE 级联删除
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
