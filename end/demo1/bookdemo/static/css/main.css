@@ -1,0 +1,13 @@
+*{
+    margin:0;
+    padding:0;
+}
+.index{
+    fontsize:30px;
+    color:blue
+    text-align:center
+}
+.detail{
+    fontsize:15px;
+    color:yellow;
+}
