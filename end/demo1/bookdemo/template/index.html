@@ -10,8 +10,16 @@
     <img src="" alt="">
     <ul>
         {% for book in books %}
-        <a href="/booktest/detail/{{book.id}}/"><li>{{book.id}}--{{book.title}}--{{book.price}}--{{book.pub_date}}</li></a>
+        {# <a href="/detail/{{book.id}}/"><li>{{book.id}}--{{book.title}}--{{book.price}}--{{book.pub_date}}</li></a> #}
+            <li>
+                <a href="{% url 'booktest:detail' book.id %}">{{book.id}}--{{book.title}}--{{book.price}}--{{book.pub_date}}</a>
+                <a href="{% url 'booktest:editbook' book.id %}">编辑</a>
+                <a href="{% url 'booktest:deletebook' book.id %}">删除</a>
+
+            </li>
         {% endfor %}
+
+        <a href="{% url 'booktest:addbook' %}">添加书籍</a>
     </ul>
 
 </body>
