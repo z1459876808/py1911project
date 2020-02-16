@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # 使用应用中的模型需要  注册
-    'booktest'
+    'booktest',
+    'polls'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 在dirs 中配置自己的模板目录
-        'DIRS': [os.path.join(BASE_DIR, 'template')],
+        # 'DIRS': [os.path.join(BASE_DIR, 'template')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
