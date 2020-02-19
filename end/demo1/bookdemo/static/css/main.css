@@ -1,13 +1,14 @@
 *{
     margin:0;
     padding:0;
+    color:red;
 }
-.index{
-    fontsize:30px;
-    color:blue
-    text-align:center
+
+.container{
+    width:500px;
+    margin:0 auto;
 }
-.detail{
-    fontsize:15px;
-    color:yellow;
+
+.center{
+    text-align:center;
 }

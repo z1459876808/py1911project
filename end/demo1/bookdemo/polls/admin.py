@@ -1,34 +1,28 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
 
 # Register your models here.
+from .models import *
 
-from .models import Article, Ticket
-
-
-class TicketInline(admin.StackedInline):
-    # book关联hero
-    model = Ticket
+class ChoiceInline(admin.StackedInline):
+    # 关联的模型类
+    model = Choices
+    # 关联个数
     extra = 1
 
+class QuestionAdmin(admin.ModelAdmin):
+    # list_display = [""]
+    inlines = [ChoiceInline]
 
-class ArticleAdmin(ModelAdmin):
-    # 定义模型管理类
-    # 通过该类修改后台页面
-    # 更改后端显示列
-    list_display = ('title',)
-    # 符页显示2个
-    list_per_page = 2
-    # 过滤字段
-    list_filter = ('title',)
-    # 定义后端搜索字段
-    search_fields = ('title',)
-    inlines = [TicketInline]
+class ChoiceAdmin(admin.ModelAdmin):
+    pass
 
+admin.site.register(Question,QuestionAdmin)
+admin.site.register(Choices,ChoiceAdmin)
 
-class TicketAdmin(ModelAdmin):
-    list_display = ('content', 'count', 'contact')
+admin.site.register(User)
 
-
-admin.site.register(Article, ArticleAdmin)
-admin.site.register(Ticket, TicketAdmin)
+"""
+admin 给后台管理使用
+admin.site.register(Question)   # 管理员可以看到模型类
+class ChoiceAdmin(admin.ModelAdmin):  #可以自定义Choice的管理页面
+"""

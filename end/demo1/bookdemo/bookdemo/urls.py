@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # 使用path将booktest得路由 进行包含
     # path('', include('booktest.urls', namespace='booktest')),
-    path('', include('polls.urls', namespace='polls'))
+    path('', include('polls.urls', namespace='polls')),
 ]
 # 硬编码  在html文件中有很多超级链接  其中href属性如果写成绝对路径  这种就叫硬编码
 # 在开发的过程中可能需要反复修改路由  若使用硬编码非常不方便

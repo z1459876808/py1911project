@@ -1,0 +1,27 @@
+{% extends 'polls/base.html' %}
+{% block body %}
+<form action="#" method="post">
+    {# {{rf}} #}
+    {% csrf_token %}
+    {{rf.username.label}}:{{rf.username}}
+    <br>
+    {{rf.username.help_text}}
+    <br>
+    {{rf.password.label}}:{{rf.password}}
+    <br>
+    {{rf.password.help_text}}
+    <br>
+    {{rf.password2.label}}:{{rf.password2}}
+    <br>
+    <input type="submit" value="注册">
+    <br>
+    {{errors}}
+
+</form>
+
+
+{% endblock %}
+
+{% block title %}
+    注册
+{% endblock %}

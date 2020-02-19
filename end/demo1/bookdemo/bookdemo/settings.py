@@ -26,6 +26,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# DEBUG = False
+# ALLOWED_HOSTS = ['*', ]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,13 +40,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 使用应用中的模型需要  注册
     'booktest',
-    'polls'
+    'polls',
+    'download'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    # csrf验证需要先关闭否则443 forbiden
+    # 这个中间件可以检测是否携带csrf_ .token信息用 Fpost检测
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -56,8 +62,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         # 在dirs 中配置自己的模板目录
-        # 'DIRS': [os.path.join(BASE_DIR, 'template')],
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'template')],
+        # 'DIRS': [os.path.join(BASE_DIR, 'templates'   )],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,4 +125,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 # 需要配置静态文件所处位置
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+#
+AUTH_USER_MODEL = 'polls.User'
+
 

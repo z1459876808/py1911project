@@ -1,0 +1,23 @@
+{% extends 'polls/base.html' %}
+{% block body %}
+<form action="#" method="post">
+    {# {{lf}} #}
+    {{lf.username.label}}:{{lf.username}}
+    <br>
+    {{lf.username.help_text}}
+    <br>
+    {{lf.password.label}}:{{lf.password}}
+    <br>
+    <input type="submit" value="登录">
+    <br>
+    {{errors}}
+
+</form>
+
+
+
+
+{% endblock %}
+{% block title %}
+    登录
+{% endblock %}
