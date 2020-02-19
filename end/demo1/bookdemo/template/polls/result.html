@@ -1,0 +1,15 @@
+{% extends 'polls/base.html' %}
+{% block body %}
+            <h2>问题是: {{question.title}}</h2>
+
+            <ul>
+                <h3>得票情况</h3>
+                {% for c in question.choices.all %}
+                    <li>{{c.content}}   {{c.votes}} 票</li>
+                {% endfor %}
+            </ul>
+
+            <a href="{% url 'polls:index' %}">返回</a>
+{% endblock %}
+
+

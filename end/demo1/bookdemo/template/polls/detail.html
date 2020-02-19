@@ -1,0 +1,31 @@
+{% block title %}
+    <h1>详情页</h1>
+{% endblock %}
+
+
+{% extends 'polls/base.html' %}
+        {% block body %}
+             <h2> 投票的问题是： {{question.title}} </h2>
+
+        <ul>
+            <h3>选项有</h3>
+
+            <form action="#" method="post">
+                {# {% csrf_token %} 这个标签可以请求获取csrftoken信息 #}
+                {% csrf_token %}
+                {% for c in question.choices.all %}
+                    {% if forloop.counter == 1 %}
+                        <li><input type="radio" checked name="num" value="{{c.id}}">     {{c.content}}</li>
+                    {% else %}
+                        <li><input type="radio"  name="num" value="{{c.id}}">     {{c.content}}</li>
+                    {% endif %}
+
+                {% endfor %}
+
+                <input type="submit" value="投票">
+            </form>
+        </ul>
+
+        <a href="{% url 'polls:index' %}">返回</a>
+        {% endblock %}
+

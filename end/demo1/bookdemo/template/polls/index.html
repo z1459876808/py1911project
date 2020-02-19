@@ -1,0 +1,18 @@
+
+
+{% extends 'polls/base.html' %}
+
+
+{% block body %}
+        <h2>投票问题列表</h2>
+        <ul>
+            {% for q in questions %}
+                <li><a href="{% url 'polls:detail' q.id %}"> {{forloop.counter}} . {{q.title}}</a> </li>
+            {% endfor %}
+        </ul>
+        {# {% include 'polls/other.html' %} #}
+{% endblock %}
+
+{% block title %}
+    主页
+{% endblock %}
