@@ -23,7 +23,7 @@ class Article(models.Model):
     create_time = models.DateTimeField(auto_now_add=True, verbose_name='创建时间')
     update_time = models.DateTimeField(auto_now=True, verbose_name='修改时间')
     author = models.CharField(max_length=20, verbose_name='作者')
-    views = models.CharField(default=0, verbose_name='浏览量')
+    views = models.PositiveIntegerField(default=0, verbose_name='浏览量')
     body = models.TextField(verbose_name='正文')
     tags = models.ManyToManyField(Tag, verbose_name='标签')
 
