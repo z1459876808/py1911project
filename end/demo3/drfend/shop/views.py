@@ -23,6 +23,11 @@ class CategoryViewsets(viewsets.ModelViewSet):
         # return CategorySerializer
 
 
+class GoodImgsViewsets(viewsets.ModelViewSet):
+    queryset = Goodimg.objects.all()
+    serializer_class = GoodImgSerializer
+
+
 class GoodViewsets(viewsets.ModelViewSet):
     queryset = Good.objects.all()
     serializer_class = GoodSerializer

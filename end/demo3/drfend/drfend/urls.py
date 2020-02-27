@@ -18,6 +18,10 @@ from django.urls import path, include
 
 from shop.views import *
 
+from django.views.static import serve
+from django.conf.urls import url
+from .settings import MEDIA_ROOT
+
 # 引入API文档路由
 from rest_framework.documentation import include_docs_urls
 
@@ -28,6 +32,7 @@ from rest_framework import routers
 router = routers.DefaultRouter()
 router.register('categorys', CategoryViewsets)
 router.register('goods', GoodViewsets)
+router.register('goodsimg', GoodImgsViewsets)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,4 +43,5 @@ urlpatterns = [
 
     # 为了在DRF路由调试界面能够使用用户相关功能需要引入以下路由
     path('', include('rest_framework.urls')),
+    url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
 ]

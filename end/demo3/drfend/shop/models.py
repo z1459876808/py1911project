@@ -17,7 +17,12 @@ class Good(models.Model):
     # 在序列化关联模型时一定要声明related_ name
     # 一找多related_name 没有定义 小写类名_set.all()
     # 定义过之后  goods.all()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='分类',related_name='goods')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name='分类', related_name='goods')
 
     def __str__(self):
         return self.name
+
+
+class Goodimg(models.Model):
+    img = models.ImageField(upload_to='goodimg')
+    good = models.ForeignKey(Good, on_delete=models.CASCADE, verbose_name='商品', related_name='imgs')
