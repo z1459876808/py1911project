@@ -33,6 +33,8 @@ router = routers.DefaultRouter()
 router.register('categorys', CategoryViewsets)
 router.register('goods', GoodViewsets)
 router.register('goodsimg', GoodImgsViewsets)
+router.register('user', UserViewsets)
+router.register('orders', OredrViewsets)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -44,4 +46,11 @@ urlpatterns = [
     # 为了在DRF路由调试界面能够使用用户相关功能需要引入以下路由
     path('', include('rest_framework.urls')),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
+
+    # url(r'^categorylist/$', categorylist, name='categorylist'),
+    # url(r'^categorydetail/(\d+)/$', categorydetail, name='categorydetail')
+
+    # url(r'^categorylist/$', CategoryListView.as_view(), name='categorylist'),
+    # url(r'^categorydetail/(?P<pk>\d+)/$', CategoryDietailView.as_view(), name='categorydetail')
+
 ]

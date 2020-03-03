@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import *
 
 
+# 自定义序列化类
 class CustomSerializer(serializers.RelatedField):
     """
     自定义序列化类
@@ -22,8 +23,8 @@ class CategorySerializer(serializers.Serializer):
     序列化决定了模型序列化细节
     """
     id = serializers.IntegerField(read_only=True)
-    name = serializers.CharField(max_length=10, min_length=2,
-                                 error_messages={'max_length': '最多十个字', 'min_length': '最少三个字'})
+    name = serializers.CharField(max_length=10, min_length=1,
+                                 error_messages={'max_length': '最多十个字', 'min_length': '最少一个字'})
 
     def create(self, validated_data):
         """
@@ -57,7 +58,7 @@ class CategorySerializer1(serializers.ModelSerializer):
 
     """
     # goods - -定要和related.name的值- 致
-    # StringRelatedField()可以显 示关联模型中的__str__ 返回值 many=True 代表多个对象read_ only=True 代表只读
+    # StringRelatedField()可以显 示关联模型中的__str__ 返回值 many=True 代表多个对象read_only=True 代表只读
     goods = serializers.StringRelatedField(many=True)
 
     # PrimaryKeyRelatedField显示主健值
@@ -100,7 +101,6 @@ class GoodImgSerializer(serializers.Serializer):
         instance.good = validated_data.get('good', instance.good)
         instance.save()
         return instance
-
 
 
 class GoodSerializer(serializers.Serializer):
@@ -157,3 +157,43 @@ class GoodSerializer1(serializers.ModelSerializer):
     class Meta:
         model = Good
         fields = ('name', 'desc', 'category')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        # fields = '__all__'
+        exclude = ['user_permissions', 'groups']
+
+    def validate(self, attrs):
+        from django.contrib.auth import hashers
+        attrs['password'] = hashers.make_password(attrs['password'])
+
+        return attrs
+
+
+class UserReigstSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=10, min_length=3, error_messages={'required': '必填项'})
+    password = serializers.CharField(max_length=10, min_length=3, write_only=True)
+    password2 = serializers.CharField(max_length=10, min_length=3, write_only=True)
+
+    def validate_password2(self, data):
+        if data != self.initial_data['password']:
+            raise serializers.ValidationError('密码不一致')
+        else:
+            return data
+
+    def validate(self, attrs):
+
+        del attrs['password2']
+        return attrs
+
+    def create(self, validated_data):
+        return User.objects.create_user(username=validated_data.get('username'), email=validated_data.get('email'),
+                                        password=validated_data.get('password'))
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = '__all__'
