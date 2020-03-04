@@ -19,6 +19,9 @@ from rest_framework import mixins
 
 from . import permissions as mypermissions
 
+from .throtting import MyUser, MyAnon
+from .pagination import MyPagination
+
 
 # Create your views here.
 
@@ -183,9 +186,14 @@ class CategoryViewsets(viewsets.ModelViewSet):
     # 超级管理员类可以创建分类  普通用户也可以查看分类
     def get_permissions(self):
         if self.action == 'create' or self.action == 'update' or self.action == 'partial_update' or self.action == 'destroy':
-            return [permissions.IsAuthenticatedOrReadOnly()]
+            return [permissions.IsAdminUser()]
         else:
             return []
+
+    throttle_classes = [MyAnon, MyUser]
+
+    # pagination_class = MyPagination
+
 
 
 class GoodImgsViewsets(viewsets.ModelViewSet):
@@ -248,10 +256,6 @@ class OredrViewsets(viewsets.ModelViewSet):
             return [mypermissions.OrederPermission()]
         else:
             return [permissions.IsAdminUser()]
-
-
-
-
 
 # http方法                          混合类关键字                   action关键字
 # GET列表                           List                          get

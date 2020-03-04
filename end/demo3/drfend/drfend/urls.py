@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_simplejwt.views import token_obtain_pair, token_refresh
 
 from shop.views import *
 
@@ -42,6 +44,9 @@ urlpatterns = [
     path('api/v1/', include(router.urls)),
     # API文档地址
     path('api/v1/docs/', include_docs_urls(title='RestFuAPI', description='RestFuAPI v1')),
+    # url(r'^obtain_jwt_token/$',obtain_jwt_token),
+    url(r'^backend/$', token_obtain_pair),
+    url(r'^refresh/$', token_refresh, name='refresh'),
 
     # 为了在DRF路由调试界面能够使用用户相关功能需要引入以下路由
     path('', include('rest_framework.urls')),

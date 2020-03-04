@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'rest_framework',
+    # 'rest_framework_jwt',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -126,7 +128,38 @@ REST_FRAMEWORK = {
     # 全局配置 优先级高于规图类中的配斗
     " DEFAULT_PERMISSION_CLASSES": [
         'rest_framework.permissions.IsAuthenticated',
-    ]
+    ],
+    # 全局认证 优先级高于视图类中的配置
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+
+        # 默认首先使用session认证
+        'rest_framework.authentication.SessionAuthentication',
+
+        # 将请求中携带的类似于Basic YWRtalW46MTIzNDU2 进 行解码处理得到对应的用户
+        # 默认首先使用basic认证 用户名密码
+
+        # 发起请求时 可以将用户名密码进行编码写入Authorizotion中然后发起请求
+        # 将请求中携带的HTTP_ AUTHORIZATION进行解码类似于Basic YWRtaW46MTIzNDU2
+        # 进行解码处 理得到对应的用户获取用户成功，认证成功获取失败 认证失则
+        'rest_framework.authentication.BasicAuthentication'
+    ],
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '2/day',
+        'anon': '1/day'
+    },
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE ': 2
+
 }
 
 AUTH_USER_MODEL = 'shop.User'
+
+# 自定义认证类   应用名.文件名.认证类名
+AUTHENTICATION_BACKENDS = ('shop.authbackend.MyLoginBackend',)
